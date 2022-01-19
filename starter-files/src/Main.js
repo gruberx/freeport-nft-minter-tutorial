@@ -57,20 +57,28 @@ const Main = (props) => {
   }, []);
 
   const onUploadPressed = async () => {
-    // TO DO 
+    const { contentId, status } = await upload2DDC(uploadData, uploadDataTitle, uploadDataDescription);
+    setStatus(status);
+    setUploadOutput("Content ID: " + contentId);
   }
 
   const onDownloadPressed = async () => {
-    // TO DO
+    const { status, content} = await downloadFromDDC(cid);
+    setStatus(status);
+    setDownloadedImage(URL.createObjectURL(content));
   };
 
   const onMintPressed = async () => {
-    // TO DO
+    const { tx, nftId, status } = await mintNFT(+qty, metadata)
+    setStatus(status);
+    setMintOutput("NFT ID: " + nftId);
   };
 
 
   const onAttachPressed = async () => {
-    // TO DO
+    const { status, tx } = await attachNftToCid(nftId, cid);
+    setStatus(status);
+    setAttachOutput(<a href={"https://mumbai.polygonscan.com/tx/"+tx}>Attachment transaction hash: {tx}</a>)
   };
 
   const onClearOutputPressed = async () => {
